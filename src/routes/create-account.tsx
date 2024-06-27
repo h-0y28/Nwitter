@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 
 const Title = styled.h1`
-    height: 100%;
+    height: 30%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -30,8 +30,15 @@ const Input = styled.input`
     font-size: 16px;
     &[type="submit"] {
         cursor: pointer;
-        &: hover;
+        &:hover {
+            opacity: 0.8;
+        }
     }
+`;
+
+const Error = styled.span`
+    font-weight: 600;
+    color: red;
 `;
 
 export default function CreateAccount() {
@@ -93,9 +100,9 @@ export default function CreateAccount() {
                 <Input
                     name="submit"
                     value={isLoading ? "LaodingScreen..." : "Create Account"}
-                    value="Create Account"
                 />
             </Form>
+            {error !== "" ? <Error>{error}</Error> : null}
         </Wrapper>
     );
 }
