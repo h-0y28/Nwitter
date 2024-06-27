@@ -28,6 +28,10 @@ const Input = styled.input`
     border: none;
     width: 100%;
     font-size: 16px;
+    &[type="submit"] {
+        cursor: pointer;
+        &: hover;
+    }
 `;
 
 export default function CreateAccount() {
@@ -43,12 +47,13 @@ export default function CreateAccount() {
         } = e;
         if (name === "name") {
             setName(value);
-        } else if (name === email) {
+        } else if (name === "email") {
             setEmail(value);
-        } else if (name === password) {
+        } else if (name === "password") {
             setPassword(value);
         }
     };
+
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
@@ -59,7 +64,7 @@ export default function CreateAccount() {
     };
     return (
         <Wrapper>
-            <Title>Log into ✖️</Title>
+            <Title>Log into 𝕏</Title>
             <Form onSubmit={onSubmit}>
                 <Input
                     onChange={onChange}
