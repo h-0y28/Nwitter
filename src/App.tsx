@@ -6,6 +6,8 @@ import Login from "./routes/login";
 import CreateAccount from "./routes/create-account";
 import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
+import { useEffect, useState } from "react";
+import LaodingScreen from "./components/loading-screen";
 
 const router = createBrowserRouter([
     {
@@ -44,10 +46,18 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 function App() {
+    const [isLoading, setLoading] = useState(true);
+    const init = async () => {
+        //wait for firebase
+        setLoading(false);
+    };
+    useEffect(() => {
+        init();
+    }, []);
     return (
         <>
             <GlobalStyles />
-            <RouterProvider router={router} />
+            {isLoading ? <LaodingScreen /> : <RouterProvider router={router} />}
         </>
     );
 }
