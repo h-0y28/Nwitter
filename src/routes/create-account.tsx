@@ -3,6 +3,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
+import { FirebaseError } from 'firebase/app';
 
 const Title = styled.h1`
   height: 35%;
@@ -77,7 +78,9 @@ export default function CreateAccount() {
       });
       navigate('/');
     } catch (e) {
-      //setError
+      if (e instanceof FirebaseError) {
+        console.log(e.code, e.message);
+      }
     } finally {
       setIsLoading(false);
     }
