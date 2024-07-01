@@ -1,8 +1,7 @@
 import { GithubAuthProvider, signInWithPopup } from 'firebase/auth';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
-// import { useNavigate } from 'react-router-dom';
 
 const Button = styled.span`
   margin-top: 50px;
@@ -20,7 +19,7 @@ const Button = styled.span`
   cursor: pointer;
 `;
 
-const Logo = styled.image`
+const Logo = styled.img`
   height: 25px;
 `;
 
