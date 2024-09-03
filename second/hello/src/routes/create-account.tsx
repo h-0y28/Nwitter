@@ -1,5 +1,8 @@
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth/cordova';
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { auth } from '../firebase';
+import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -42,6 +45,8 @@ const Error = styled.span`
 `;
 
 export default function CreateAccount() {
+  const navigate = useNavigate();
+
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -64,9 +69,20 @@ export default function CreateAccount() {
     }
   };
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isLoading || name === '' || email === '' || password === '') return;
     try {
+      setIsLoading(true);
+      // 계정 생성
+      const credentials = await createUserWithEmailAndPassword(auth, email, password);
+      console.log(credentials.user);
+
+      // 사용자 프로필 업데이트
+      await updateProfile(credentials.user, { displayName: name });
+
+      // home으로 이동
+      navigate('/');
     } catch (e) {
     } finally {
       setIsLoading(false);
@@ -75,7 +91,7 @@ export default function CreateAccount() {
   };
   return (
     <Wrapper>
-      <Title>Log into 𝕏</Title>
+      <Title>Join 𝕏</Title>
       <Form onSubmit={onSubmit}>
         <Input onChange={onChange} name="name" value={name} placeholder="Name" type="text" required />
         <Input onChange={onChange} name="email" value={email} placeholder="Email" type="email" required />
