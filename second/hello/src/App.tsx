@@ -9,11 +9,16 @@ import reset from 'styled-reset'; // styled-reset이 필요한 경우
 import { useEffect, useState } from 'react';
 import LoadingScreen from './components/loading-screen';
 import { auth } from './firebase';
+import ProtectedRoute from './components/protected-route';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout />,
+    element: (
+      <ProtectedRoute>
+        <Layout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         // index: true, // 기본 라우트로 설정
